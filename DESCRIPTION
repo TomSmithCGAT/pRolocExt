@@ -1,0 +1,29 @@
+Package: PrettypRoloc
+Type: Package
+Title: For generating (more pretty) spatial proteomics plots
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Tom", family = "Smith", role = c("cre", "aut"),
+           email = "tss38@cam.ac.uk", comment = c(ORCID = "0000-0002-0697-8777"))
+    )
+Description: pRoloc plotting functions are largely restricted to base R plotting.
+    This package contains more opionated standard plotting functions for plotting
+    spatial proteomics data.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+biocViews:
+Depends: 
+    R (>= 2.10)
+Imports: 
+    pRoloc,
+    tidyr,
+    dplyr,
+    camprotR,
+    ggplot2
+Suggests: 
+    testthat
+Remotes:
+    CambridgeCentreForProteomics/camprotR
