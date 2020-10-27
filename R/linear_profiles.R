@@ -28,8 +28,8 @@ get_sample_2_rep <- function(obj, replicate_boundaries){
 #' @examples
 #' library(pRolocdata)
 #' data(lopitdcU2OS2018)
-#' Plot_feature_profiles(head(lopitdcU2OS2018), c(10,20))
-Plot_feature_profiles <- function(obj, replicate_boundaries=NULL){
+#' plot_feature_profiles(head(lopitdcU2OS2018), c(10,20))
+plot_feature_profiles <- function(obj, replicate_boundaries=NULL){
 
   exprs_df <- data.frame(exprs(obj)) %>%
     tibble::rownames_to_column('feature') %>%

@@ -9,7 +9,8 @@ plot_marker_profiles(
   fcol = "markers",
   plot_all = T,
   alpha = 1,
-  facet_by = "none"
+  facet_by = "none",
+  group_by = NULL
 )
 }
 \arguments{
@@ -23,6 +24,9 @@ plot_marker_profiles(
 
 \item{facet_by}{\code{character} Split plot into facets for each marker sets
 (\code{markers}), each feature (\code{feature}), or no facetting (\code{none})}
+
+\item{group_by}{Grouping factor for lines. Variable must be specified in pData for obj.
+This parameter can be used to e.g ensure replicates are plotted as separate lines}
 }
 \description{
 Generates line plots for each marker. Each marker set is plotted
