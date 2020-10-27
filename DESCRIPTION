@@ -1,6 +1,6 @@
-Package: PrettypRoloc
+Package: pRolocExt
 Type: Package
-Title: For generating (more pretty) spatial proteomics plots
+Title: Extended spatial proteomics analyses
 Version: 0.1.0
 Authors@R: c(
     person(given = "Tom", family = "Smith", role = c("cre", "aut"),
