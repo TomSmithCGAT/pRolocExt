@@ -34,7 +34,7 @@ plot_feature_profiles <- function(obj, replicate_boundaries=NULL){
   exprs_df <- data.frame(exprs(obj)) %>%
     tibble::rownames_to_column('feature') %>%
     tidyr::pivot_longer(-feature, names_to='sample', values_to='abundance') %>%
-    dplyr::mutate(sample=factor(sample, levels=colnames(obj)))
+    dplyr::mutate(sample=factor(remove_x(sample), levels=colnames(obj)))
 
   if(!missing(replicate_boundaries)){
     # add the replicate information using the boundaries
@@ -156,20 +156,31 @@ plot_marker_profiles <- function(obj,
       p <- p + aes(group=interaction(!!sym(group_by), id))
     }
   } else{
-    if(length(alpha)==1){
-      p <- p +
-        stat_summary(aes(group=!!sym(fcol)),
-                     geom="line", fun.y=mean, size=1, alpha=alpha)
-    } else{
-      p <- p +
-        stat_summary(aes(group=!!sym(fcol)),
-                     geom="line", fun.y=mean, size=1) +
-        aes(alpha=!!sym(fcol))
-    }
     if(!missing(group_by)){
-      p <- p + aes(group=interaction(!!sym(group_by), !!sym(fcol)))
+      if(length(alpha)==1){
+        p <- p +
+          stat_summary(aes(group=interaction(!!sym(fcol), !!sym(group_by))),
+                       geom="line", fun.y=mean, size=1, alpha=alpha)
+      } else{
+        p <- p +
+          stat_summary(aes(group=interaction(!!sym(fcol), !!sym(group_by)),
+                           alpha=!!sym(fcol)),
+                       geom="line", fun.y=mean, size=1, alpha=alpha)
+      }
+    }
+    else{
+      if(length(alpha)==1){
+        p <- p +
+          stat_summary(aes(group=!!sym(fcol)),
+                       geom="line", fun.y=mean, size=1, alpha=alpha)
+      } else{
+        p <- p +
+          stat_summary(aes(group=!!sym(fcol), alpha=!!sym(fcol)),
+                       geom="line", fun.y=mean, size=1, alpha=alpha)
+        }
     }
   }
+    
   if(length(alpha)>1){
     p <- p + scale_alpha_manual(values=alpha, guide=FALSE)
   }
