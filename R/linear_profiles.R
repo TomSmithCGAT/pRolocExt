@@ -36,7 +36,7 @@ plot_feature_profiles <- function(obj, replicate_boundaries=NULL){
     tidyr::pivot_longer(-feature, names_to='sample', values_to='abundance') %>%
     dplyr::mutate(sample=factor(remove_x(sample), levels=colnames(obj)))
 
-  if(!missing(replicate_boundaries)){
+  if(!is.null(replicate_boundaries)){
     # add the replicate information using the boundaries
     sample2rep <- get_sample_2_rep(obj, replicate_boundaries)
     exprs_df <- exprs_df %>% merge(sample2rep, by='sample')
@@ -50,7 +50,7 @@ plot_feature_profiles <- function(obj, replicate_boundaries=NULL){
     xlab("Sample") +
     ylab("Abundance")
 
-  if(!missing(replicate_boundaries)){
+  if(!is.null(replicate_boundaries)){
     p <- p +
       facet_wrap(.~replicate, scales='free_x') +
       theme(panel.spacing.x=unit(0.1, "lines"),
@@ -152,11 +152,11 @@ plot_marker_profiles <- function(obj,
         aes(alpha=!!sym(fcol)) +
         scale_colour_discrete(name='')
     }
-    if(!missing(group_by)){
+    if(!is.null(group_by)){
       p <- p + aes(group=interaction(!!sym(group_by), id))
     }
   } else{
-    if(!missing(group_by)){
+    if(!is.null(group_by)){
       if(length(alpha)==1){
         p <- p +
           stat_summary(aes(group=interaction(!!sym(fcol), !!sym(group_by))),
